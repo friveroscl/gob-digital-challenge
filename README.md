@@ -23,7 +23,7 @@ Este repositorio contiene el parte de la prueba técnica realizada para postular
     ```
 
 3. Modificar el archivo `/terraform/providers.tf` de acuerdo al bucket y región de AWS usados en el paso previo.
-   ```terraform
+  ```
   backend "s3" {
     bucket         = "gob-digital-terraform-state"
     key            = "terraform.tfstate"
@@ -32,4 +32,15 @@ Este repositorio contiene el parte de la prueba técnica realizada para postular
   }
    ```
 
-4. 
+4. Modificar el archivo `/terraform/variables.tf` según nuestras necesidades de CIDR y región de AWS (o usar un archivo `.tfvars`).
+  ```
+  variable "aws_region" {
+    type    = string
+    default = "us-east-1"
+  }
+
+  variable "cidr_block" {
+    type    = string
+    default = "10.0.0.0/16"
+  }
+  ```
