@@ -35,6 +35,10 @@ resource "aws_internet_gateway" "igw" {
 resource "aws_eip" "nat_eip" {
   count  = 3
   domain = "vpc"
+
+  tags = {
+    Name = "${var.prefix}-nat-gw-${count.index + 1}"
+  }
 }
 
 
@@ -60,7 +64,7 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name                     = "${var.prefix}-public-subnet-${count.index + 1}"
+    Name = "${var.prefix}-public-subnet-${count.index + 1}"
     "kubernetes.io/role/elb" = "1"
   }
 }
@@ -73,7 +77,7 @@ resource "aws_subnet" "private" {
   availability_zone = local.az[count.index]
 
   tags = {
-    Name                              = "${var.prefix}-private-subnet-${count.index + 1}"
+    Name = "${var.prefix}-private-subnet-${count.index + 1}"
     "kubernetes.io/role/internal-elb" = "1"
   }
 }
