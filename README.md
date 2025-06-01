@@ -2,6 +2,8 @@
 
 Este repositorio contiene el parte de la prueba técnica realizada para postular al cargo de Encargado de Infraestructura TI, en particular contiene el código fuente usado para levantar la infraestructura requerida (IaC, Terraform).
 
+> Para esta prueba técnica se implementó todo en la región `us-east-1` de AWS (N. Virginia). Se puede cambiar la región a cualquier otra, siguiendo las instrucciones que se indican.
+
 ### Instrucciones
 
 1. Configurar un par de credenciales de AWS que cuenten con los permisos adecuados. Por ejemplo, usando el archivo `~/.aws/credentials`.
@@ -32,7 +34,7 @@ Este repositorio contiene el parte de la prueba técnica realizada para postular
     }
     ```
 
-4. Modificar el archivo `/terraform/variables.tf` según nuestras necesidades de CIDR y región de AWS (o usar un archivo `.tfvars`).
+4. Modificar el archivo `/terraform/variables.tf` según nuestras necesidades, incluyendo el CIDR para la VPC y la misma región de AWS de los pasos anteriores (o usar un archivo `.tfvars`).
     ```
     variable "aws_region" {
       type    = string
@@ -45,4 +47,17 @@ Este repositorio contiene el parte de la prueba técnica realizada para postular
     }
     ```
 
-5. 
+5. Ejecutar `terraform init` -dentro del directorio `terraform`- para inicializar el backend y descargar las dependencias del proyecto.
+    ```
+    terraform init
+    ```
+
+6. Ejecutar `terraform plan` para revisar los cambios que se efectuarán en la infraestructura.
+
+7. Ejecutar `terraform apply` para aplicar los cambios a la infraestructura.
+
+&nbsp;
+
+### Explicación
+
+- **VPC**: 
