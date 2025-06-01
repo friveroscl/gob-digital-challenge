@@ -6,7 +6,7 @@ Objetivo: Evaluar capacidad crítica, experiencia práctica y visión de mejora.
 
 - ¿Qué errores técnicos identifica?
 
-  * *Desplegar infraestructura usando scripts no versionados*: si bien es recomendable no usar scripts para desplegar infraestructura -sino usar directamente herramientas de IaC como Terraform o Pulumi-, resulta común y práctico usar scripts para algunas tareas específicas. Por lo tanto, el error no es usar scripts, sino más bien **que no estén versionados**. Al no estar versionados podemos tener diferentes problemas:
+  - *Desplegar infraestructura usando scripts no versionados*: si bien es recomendable no usar scripts para desplegar infraestructura -sino usar directamente herramientas de IaC como Terraform o Pulumi-, resulta común y práctico usar scripts para algunas tareas específicas. Por lo tanto, el error no es usar scripts, sino más bien **que no estén versionados**. Al no estar versionados podemos tener diferentes problemas:
     -  
 
   - Credenciales en texto plano
