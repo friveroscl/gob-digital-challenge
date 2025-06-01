@@ -56,7 +56,7 @@ resource "aws_iam_instance_profile" "ec2_instance_profile" {
 
 
 resource "aws_eks_access_entry" "ec2_eks_access_entry" {
-  cluster_name  = local.cluster_name
+  cluster_name  = module.eks.cluster_name
   principal_arn = aws_iam_role.ec2_instance_role.arn
   type          = "STANDARD"
 }
