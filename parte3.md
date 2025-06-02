@@ -48,9 +48,14 @@ Una infraestructura tradicional no debería tener problemas, es decir:
 
 *Incluya su enfoque en la selección y configuración específica de recursos AWS, implementación de principios como 'Immutable Infrastructure' y la aplicación directa de despliegues 'Blue/Green' en bases de datos relacionales (RDS), estrategias avanzadas de gestión de secretos, políticas de gobernanza sobre IaC, y cómo integraría mecanismos demonitoreo para anticipar y mitigar fallos antes de que impacten en producción.*
 
-- ¿Qué herramientas recomendarías para cambios y despliegues seguros?
+&nbsp;
 
-- ¿Cómo implementarías un pipeline CI/CD básico para contenedores?
+**¿Qué herramientas recomendarías para cambios y despliegues seguros?**
+
+
+&nbsp;
+
+**¿Cómo implementarías un pipeline CI/CD básico para contenedores?**
 
 Un pipeline básico para contendores podría implementar las siguientas etapas:
   - Ejecutar un linter
@@ -60,7 +65,11 @@ Un pipeline básico para contendores podría implementar las siguientas etapas:
   - Subir imagen de contenedor a algún registro (como ECR)
   - Actualizar imagen de contenedor en Kubernetes (con Helm)
 
-- ¿Cómo involucraría al equipo en estas mejoras sin detener la operación?
+&nbsp;
+
+**¿Cómo involucraría al equipo en estas mejoras sin detener la operación?**
 
 Para involucrar al equipo sin detener la operación, consideraría:
   - 
+
+&nbsp;
