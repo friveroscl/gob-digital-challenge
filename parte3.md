@@ -2,6 +2,10 @@
 
 Objetivo: Evaluar capacidad crítica, experiencia práctica y visión de mejora. Encuentre el o los errores.
 
+&nbsp;
+
+&nbsp;
+
 *El SRE responsable de un producto, desplegó infraestructura en AWS usando scripts manuales no versionados. El entorno tiene Kubernetes (EKS), credenciales en texto plano, sin monitoreo centralizado, tiene autoscaling con un averageUtilization de 95, y actualizaciones manuales en pods en producción.*
 
 **¿Qué errores técnicos identifica?**
@@ -32,10 +36,31 @@ Para los casos en que lo anterior no sea factible, usar una bóveda o gestor de 
 
 **Considerando principios avanzados de infraestructura resiliente y tolerancia a fallos, detalle cómo plantearía esta infraestructura desde cero.**
 
+Una infraestructura tradicional no debería tener problemas, es decir:
+
+- Desplegar los recursos en diferentes zonas de disponibilidad en la región de AWS seleccionada. Si los requisitos de la aplicación lo justifican, desplegar una segunda región. 
+- Desplegar VPC con 3 subredes públicas y 3 subredes privadas, Internet Gateway para las subredes públicas y NAT Gateways para las subredes privadas.
+- Desplegar un clúster de Kubernetes en las subredes privadas, usar EKS Auto Mode, aplicar tags a recursos para que componentes como ALB Ingress Controller o Karpenter puedan realizar auto-discover. Usar Helm y GitOps si la madurez de la organización lo permite.
+- Provisionar servicios desde cero en vez de actualizar componentes como Kubernetes o RDS, com Terraform y pipelines de CI/CD esto es posible.
+- Respetar el principio de menor privilegio o permiso, tanto para permisos de aplicaciones o usuario como para controles o recursos de red.
+- 
+
+
 *Incluya su enfoque en la selección y configuración específica de recursos AWS, implementación de principios como 'Immutable Infrastructure' y la aplicación directa de despliegues 'Blue/Green' en bases de datos relacionales (RDS), estrategias avanzadas de gestión de secretos, políticas de gobernanza sobre IaC, y cómo integraría mecanismos demonitoreo para anticipar y mitigar fallos antes de que impacten en producción.*
 
 - ¿Qué herramientas recomendarías para cambios y despliegues seguros?
 
 - ¿Cómo implementarías un pipeline CI/CD básico para contenedores?
 
+Un pipeline básico para contendores podría implementar las siguientas etapas:
+  - Ejecutar un linter
+  - Escanear con un herramienta de calidad de código como SonarQube
+  - Ejecutar pruebas unitarias
+  - Construir imagen de contenedor 
+  - Subir imagen de contenedor a algún registro (como ECR)
+  - Actualizar imagen de contenedor en Kubernetes (con Helm)
+
 - ¿Cómo involucraría al equipo en estas mejoras sin detener la operación?
+
+Para involucrar al equipo sin detener la operación, consideraría:
+  - 
