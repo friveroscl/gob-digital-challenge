@@ -6,17 +6,29 @@ Objetivo: Evaluar capacidad crítica, experiencia práctica y visión de mejora.
 
 **¿Qué errores técnicos identifica?**
 
-  - *Desplegar infraestructura usando scripts no versionados*: si bien es recomendable no usar scripts para desplegar infraestructura -sino usar directamente herramientas de IaC como Terraform o Pulumi-, resulta común y práctico usar scripts para algunas tareas específicas. Por lo tanto, el error no es usar scripts, sino más bien **que no estén versionados**. Al no estar versionados podemos tener diferentes problemas:
+  1. *Desplegar infraestructura usando scripts no versionados*: No es recomendable usar scripts para desplegar infraestructura -sino usar directamente herramientas de IaC como Terraform o Pulumi-, aunque podrían existir algunos contextos o casos en los cuales resulte más práctico usar scripts (por ejemplo, en la prueba técnica se usaron scripts para crear el bucket S3 y la tabla de DynamoDB). Al usar scripts no versionados podemos tener diferentes problemas:
+    - Falta de trazabilidad o de responsables (¿quién es dueño de los scripts o aprueba sus cambios?)
+    - Falta de consistencia en el estado de la infraestructura (¿cómo se modifica o actualiza la infraestructura creada con estos scripts?)
 
-  - Credenciales en texto plano
-  - Sin monitoreo
-  - AutoScaling
-  - Actualizaciones manuales de pods
+  2. *Credenciales en texto plano*: en EKS existen diferentes mecanismos para trabajar con credenciales u otra información considerada como secreto, cada uno con distinto nivel de seguridad. Desde algo básico como usar el recurso Secret de Kubernetes, hasta soluciones más complejas como gestores o bóvedas de secretos ([Vault](https://www.hashicorp.com/en/products/vault) / [AWS Secret Manager](https://aws.amazon.com/es/secrets-manager/)) que incluyan secretos temporales o con rotación. 
 
+  3. *Sin monitoreo*: al no tener monitoreo, será imposible anticipar problemas (o generar avisos o alertas cuando algo salga de la norma) o aprender de los que se presenten o incluso saber cuáles son sus métricas normales de uso. 
+
+  4. *AutoScaling al 95%*: el umbral de autoscaling es demasiado alto, por lo general se usan valores **entre 50% y 70%**, lo que permite tener un margen para manejar respuestas ante peaks inesperados. Al 95% -tanto en CPU como en memoria- es muy probable que el sistema ya esté degradado y esté mostrando errores, timeouts, cuellos de botella u otras señales. 
+
+  5. *Actualizaciones manuales de pods*: no se deberían administrar los pods de manera manual en Kubernetes, existe riesgo de generar indisponibilidad al editar los manifiestos a mano, como también de perder su trazabilidad o de no poder realizar rollback.
+
+&nbsp; 
 
 **¿Cuál es el impacto de tener credenciales expuestas y qué solución propone?**
 
-  - 
+Una credencial expuesta puede ser obtenida por terceros y podría llegar a ser usada de forma inapropiada. Si sabemos que una credencial fue expuesta, se le debe negar el acceso lo más pronto que sea posible. Si es una contraseña se puede actualizar o resetear, si es una API key se debe generar una nueva, etc.
+
+Hay distintas alternativas para manejar credenciales. Mi recomedación es NO usar credenciales cuando sea posible, por ejemplo: es posible ejecutar instancias EC2 bajo un rol de IAM, usando Instance Profile y también es posible ejecutar pods en Kubernetes bajo un rol de IAM, pero en este caso usando Pod Identity Agent. En ambos casos, lo que se busca es tener acceso a recursos cloud como RDS, S3, etc. sin llegar a usar credenciales o AWS Keys.
+
+Para los casos en que lo anterior no sea factible, usar una bóveda o gestor de secretos, como Vault o AWS Secrets Manager permitirá que incluso se pueda configurar rotación de credenciales o establecer algún cifrado propio.
+
+&nbsp;
 
 **Considerando principios avanzados de infraestructura resiliente y tolerancia a fallos, detalle cómo plantearía esta infraestructura desde cero.**
 
