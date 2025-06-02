@@ -83,10 +83,7 @@ Objetivo: Evaluar capacidad crítica, experiencia práctica y visión de mejora.
 
 **¿Qué errores técnicos identifica?**
 
-  1. *Desplegar infraestructura usando scripts no versionados*: No es recomendable usar scripts para desplegar infraestructura -sino usar directamente herramientas de IaC como Terraform o Pulumi-, aunque podrían existir algunos contextos o casos en los cuales resulte más práctico usar scripts (por ejemplo, en la prueba técnica se usaron scripts para crear el bucket S3 y la tabla de DynamoDB). Al usar scripts no versionados podemos tener diferentes problemas:
-  
-    - Falta de trazabilidad o de responsables (¿quién es dueño de los scripts o aprueba sus cambios?)
-    - Falta de consistencia en el estado de la infraestructura (¿cómo se modifica o actualiza la infraestructura creada con estos scripts?)
+  1. *Desplegar infraestructura usando scripts no versionados*: No es recomendable usar scripts para desplegar infraestructura -sino usar directamente herramientas de IaC como Terraform o Pulumi-, aunque podrían existir algunos contextos o casos en los cuales resulte más práctico usar scripts (por ejemplo, en la prueba técnica se usaron scripts para crear el bucket S3 y la tabla de DynamoDB). Al usar scripts no versionados podemos tener diferentes problemas como: falta de trazabilidad o de responsables (¿quién es dueño de los scripts o aprueba sus cambios?) y falta de consistencia en el estado de la infraestructura (¿cómo se modifica o actualiza la infraestructura creada con estos scripts?).
 
   2. *Credenciales en texto plano*: en EKS existen diferentes mecanismos para trabajar con credenciales u otra información considerada como secreto, cada uno con distinto nivel de seguridad. Desde algo básico como usar el recurso Secret de Kubernetes, hasta soluciones más complejas como gestores o bóvedas de secretos ([Vault](https://www.hashicorp.com/en/products/vault) / [AWS Secret Manager](https://aws.amazon.com/es/secrets-manager/)) que incluyan secretos temporales o con rotación. 
 
