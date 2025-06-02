@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket         = "gobierno-digital-terraform-state"
+    bucket         = "gob-digital-terraform-state"
     key            = "terraform.tfstate"
     region         = "us-east-1"
     dynamodb_table = "terraform-lock"
